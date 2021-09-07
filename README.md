@@ -1,6 +1,6 @@
 
 
-# Angular Nest NX Boilerplate
+# Angular, NestJS And NX Boilerplate
 
 This project was generated using [Nx](https://nx.dev).
 
