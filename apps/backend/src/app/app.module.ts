@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 // import { AuthModule } from './auth/auth.module';
-// import { UserModule } from './user/user.module';
+import { UserModule } from './user/user.module';
 
 
 
@@ -19,6 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
