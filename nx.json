@@ -27,12 +27,36 @@
     ]
   },
   "projects": {
+    "backend": {
+      "tags": []
+    },
+    "enums": {
+      "tags": []
+    },
     "frontend": {
+      "tags": []
+    },
+    "frontend-core": {
+      "tags": []
+    },
+    "frontend-core-http": {
+      "tags": []
+    },
+    "frontend-core-routes": {
+      "tags": []
+    },
+    "frontend-core-services": {
       "tags": []
     },
     "frontend-e2e": {
       "tags": [],
       "implicitDependencies": ["frontend"]
+    },
+    "interfaces": {
+      "tags": []
+    },
+    "ui": {
+      "tags": []
     }
   }
 }

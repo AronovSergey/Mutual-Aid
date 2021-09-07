@@ -1,6 +1,81 @@
 {
   "version": 1,
   "projects": {
+    "backend": {
+      "root": "apps/backend",
+      "sourceRoot": "apps/backend/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/backend",
+            "main": "apps/backend/src/main.ts",
+            "tsConfig": "apps/backend/tsconfig.app.json",
+            "assets": ["apps/backend/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/backend/src/environments/environment.ts",
+                  "with": "apps/backend/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "backend:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/backend/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/backend"],
+          "options": {
+            "jestConfig": "apps/backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "enums": {
+      "projectType": "library",
+      "root": "libs/enums",
+      "sourceRoot": "libs/enums/src",
+      "prefix": "mutual-aid",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/enums"],
+          "options": {
+            "jestConfig": "libs/enums/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/enums/src/**/*.ts",
+              "libs/enums/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "frontend": {
       "projectType": "application",
       "root": "apps/frontend",
@@ -67,7 +142,10 @@
               "browserTarget": "frontend:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "apps/frontend/proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -94,6 +172,106 @@
         }
       }
     },
+    "frontend-core": {
+      "projectType": "library",
+      "root": "libs/frontend-core",
+      "sourceRoot": "libs/frontend-core/src",
+      "prefix": "mutual-aid",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend-core"],
+          "options": {
+            "jestConfig": "libs/frontend-core/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend-core/src/**/*.ts",
+              "libs/frontend-core/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "frontend-core-http": {
+      "projectType": "library",
+      "root": "libs/frontend-core/http",
+      "sourceRoot": "libs/frontend-core/http/src",
+      "prefix": "mutual-aid",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend-core/http"],
+          "options": {
+            "jestConfig": "libs/frontend-core/http/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend-core/http/src/**/*.ts",
+              "libs/frontend-core/http/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "frontend-core-routes": {
+      "projectType": "library",
+      "root": "libs/frontend-core/routes",
+      "sourceRoot": "libs/frontend-core/routes/src",
+      "prefix": "mutual-aid",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend-core/routes"],
+          "options": {
+            "jestConfig": "libs/frontend-core/routes/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend-core/routes/src/**/*.ts",
+              "libs/frontend-core/routes/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "frontend-core-services": {
+      "projectType": "library",
+      "root": "libs/frontend-core/services",
+      "sourceRoot": "libs/frontend-core/services/src",
+      "prefix": "mutual-aid",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend-core/services"],
+          "options": {
+            "jestConfig": "libs/frontend-core/services/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend-core/services/src/**/*.ts",
+              "libs/frontend-core/services/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "frontend-e2e": {
       "root": "apps/frontend-e2e",
       "sourceRoot": "apps/frontend-e2e/src",
@@ -116,6 +294,49 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/frontend-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "root": "libs/interfaces",
+      "sourceRoot": "libs/interfaces/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/interfaces/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/interfaces"],
+          "options": {
+            "jestConfig": "libs/interfaces/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ui": {
+      "projectType": "library",
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "prefix": "mutual-aid",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui"],
+          "options": {
+            "jestConfig": "libs/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
           }
         }
       }
