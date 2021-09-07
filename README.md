@@ -31,10 +31,10 @@ Example of file:
     JWT_SECRET=jklasjdoij897231na
 
 ## Run project 
-`npm install`  
-`npm run start` to start frontend and backend in dev mode
-`npx nx serve` to start the Frontend in dev mode
-`npx nx serve backend` to start the Backend in dev mode
+ - `npm install`  
+ - `npm run start` to start frontend and backend in dev mode
+ - `npx nx serve` to start the Frontend in dev mode
+ - `npx nx serve backend` to start the Backend in dev mode
 
 ## Start the e2e tests
 `npm install`  
