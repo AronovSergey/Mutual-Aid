@@ -1,36 +1,84 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { from, Observable } from 'rxjs';
+import { Repository, UpdateResult, DeleteResult } from 'typeorm';
+import { from, Observable, throwError } from 'rxjs';
+import { switchMap, map, catchError } from 'rxjs/operators'
 import { IUser } from '@mutual-aid/interfaces';
-import { UserEntity } from '../user.entity';
+import { User } from '../user.entity';
+import { AuthService } from '../../auth/services/auth.service';
 
 
 @Injectable()
 export class UserService {
 
     constructor(
-        @InjectRepository(UserEntity) 
-        private readonly userRepository: Repository<UserEntity>,
-    ) {}
+        private authService: AuthService,
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>,
+    ) { }
 
     create(user: IUser): Observable<IUser> {
-        return from(this.userRepository.save(user));
+        return this.authService.hashPassword(user.password).pipe(
+            switchMap((password: string) => {
+                user.password = password;
+                return from(this.userRepository.save(user)).pipe(
+                    map((user: IUser) => {
+                        delete user.password
+                        return user;
+                    }),
+                    catchError(err => throwError(err))
+                )
+            })
+        );
     }
 
     findOne(id: number): Observable<IUser> {
         return from(this.userRepository.findOne(id));
     }
 
+    findByMail(email: string): Observable<IUser> {
+        return from(this.userRepository.findOne({ email }));
+    }
+
     findAll(): Observable<IUser[]> {
         return from(this.userRepository.find());
     }
 
-    deleteOne(id: number): Observable<any> {
+    deleteOne(id: number): Observable<DeleteResult> {
         return from(this.userRepository.delete(id));
     }
 
-    updateOne(id: number, user: IUser): Observable<any> {
+    updateOne(id: number, user: IUser): Observable<UpdateResult> {
+        delete user.email;
+        delete user.password;
         return from(this.userRepository.update(id, user));
+    }
+
+    login(user: IUser): Observable<string> {
+        return this.validateUser(user.email, user.password).pipe(
+            switchMap((user: IUser) => {
+                return this.authService.generateJWT(user).pipe(map((jwt: string) => jwt));
+            })
+        );
+    }
+
+    validateUser(email: string, password: string): Observable<IUser> {
+        return from(this.userRepository.findOne({ where: { email }, select: ['password'] })).pipe(
+            switchMap((user: IUser) => {
+                if(user) {
+                    return this.authService.comparePasswords(password, user.password).pipe(
+                        map((match: boolean) => {
+                            if (match) {
+                                return user;
+                            } else {
+                                throw Error('Wrong Credentials');
+                            }
+                        })
+                    )
+                } else {
+                    throw Error('Wrong Credentials');
+                }
+            })
+        )
     }
 }
