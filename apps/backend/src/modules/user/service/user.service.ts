@@ -6,6 +6,8 @@ import { switchMap, map, catchError } from 'rxjs/operators'
 import { IUser } from '@mutual-aid/interfaces';
 import { User } from '../user.entity';
 import { AuthService } from '../../auth/services/auth.service';
+import { paginate, Pagination, IPaginationOptions } from 'nestjs-typeorm-paginate';
+import { UserRole } from '@mutual-aid/enums';
 
 
 @Injectable()
@@ -21,6 +23,7 @@ export class UserService {
         return this.authService.hashPassword(user.password).pipe(
             switchMap((password: string) => {
                 user.password = password;
+                user.role = UserRole.USER;
                 return from(this.userRepository.save(user)).pipe(
                     map((user: IUser) => {
                         delete user.password
@@ -40,8 +43,8 @@ export class UserService {
         return from(this.userRepository.findOne({ email }));
     }
 
-    findAll(): Observable<IUser[]> {
-        return from(this.userRepository.find());
+    findAll(options: IPaginationOptions): Observable<Pagination<IUser>> {
+        return from(paginate<IUser>(this.userRepository, options));
     }
 
     deleteOne(id: number): Observable<DeleteResult> {

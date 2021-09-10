@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param, Delete, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Delete, Put, UseGuards, Query } from '@nestjs/common';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -8,10 +8,11 @@ import { hasRoles } from '../../auth/decorator/roles.decorator';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { JwtAuthGuard } from './../../auth/guards/jwt-guard';
 import { UserRole } from '@mutual-aid/enums';
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Controller('users')
 export class UserController {
-    
+
     constructor(private userService: UserService) { }
 
     @Post()
@@ -35,11 +36,10 @@ export class UserController {
         return this.userService.findOne(Number(id))
     }
 
-    @hasRoles(UserRole.ADMIN)
-    @UseGuards(JwtAuthGuard, RolesGuard)
     @Get()
-    findAll(): Observable<IUser[]> {
-        return this.userService.findAll()
+    findAll(@Query('page') page = 1, @Query('limit') limit = 10): Observable<Pagination<IUser>> {
+        limit = (limit > 100) ? 100 : limit;
+        return this.userService.findAll({ page: Number(page), limit: Number(limit), route: 'http://localhost:3333/api/users' })
     }
 
     @Delete(':id')
