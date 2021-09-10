@@ -1,1 +1,1 @@
-export * from './lib/enums.module';
+export * from './enums/user-role.enum';

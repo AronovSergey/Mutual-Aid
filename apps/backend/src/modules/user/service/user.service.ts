@@ -51,6 +51,12 @@ export class UserService {
     updateOne(id: number, user: IUser): Observable<UpdateResult> {
         delete user.email;
         delete user.password;
+        delete user.role;
+
+        return from(this.userRepository.update(id, user));
+    }
+
+    updateRole(id: number, user: IUser): Observable<UpdateResult> {
         return from(this.userRepository.update(id, user));
     }
 
@@ -63,12 +69,13 @@ export class UserService {
     }
 
     validateUser(email: string, password: string): Observable<IUser> {
-        return from(this.userRepository.findOne({ where: { email }, select: ['password'] })).pipe(
+        return from(this.userRepository.findOne({ where: { email }, select: ['id', 'password'] })).pipe(
             switchMap((user: IUser) => {
                 if(user) {
                     return this.authService.comparePasswords(password, user.password).pipe(
                         map((match: boolean) => {
                             if (match) {
+                                delete user.password;
                                 return user;
                             } else {
                                 throw Error('Wrong Credentials');
