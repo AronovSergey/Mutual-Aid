@@ -11,7 +11,6 @@ import { AuthService } from '../../auth/services/auth.service';
 @Injectable()
 export class UserService {
 
-    
     constructor(
         private authService: AuthService,
         @InjectRepository(User)
