@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'frontend-core-routes',
-  preset: '../../../jest.preset.js',
+  displayName: 'material',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/frontend-core/routes',
+  coverageDirectory: '../../coverage/libs/material',
   transform: {
     '^.+\\.(ts|js|html)$': 'jest-preset-angular',
   },

@@ -222,31 +222,6 @@
         }
       }
     },
-    "frontend-core-routes": {
-      "projectType": "library",
-      "root": "libs/frontend-core/routes",
-      "sourceRoot": "libs/frontend-core/routes/src",
-      "prefix": "mutual-aid",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/frontend-core/routes"],
-          "options": {
-            "jestConfig": "libs/frontend-core/routes/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/frontend-core/routes/src/**/*.ts",
-              "libs/frontend-core/routes/src/**/*.html"
-            ]
-          }
-        }
-      }
-    },
     "frontend-core-services": {
       "projectType": "library",
       "root": "libs/frontend-core/services",
@@ -315,6 +290,31 @@
           "options": {
             "jestConfig": "libs/interfaces/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "material": {
+      "projectType": "library",
+      "root": "libs/material",
+      "sourceRoot": "libs/material/src",
+      "prefix": "mutual-aid",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/material"],
+          "options": {
+            "jestConfig": "libs/material/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/material/src/**/*.ts",
+              "libs/material/src/**/*.html"
+            ]
           }
         }
       }

@@ -166,12 +166,21 @@
   dependencies:
     eslint-scope "^5.1.0"
 
-"@angular/animations@^12.1.0":
-  version "12.2.4"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-12.2.4.tgz#85c060d5c268170fcb720a61c595991b196e7829"
-  integrity sha512-UpTddGkftkW/vOhF19Z6lbtvhUX+LpMw+1qC2miM65XNrOWBe5bojX9/9pwGd1CpP189aRFHl933YLCgVxGKPA==
+"@angular/animations@^12.2.5":
+  version "12.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-12.2.5.tgz#b5b534f9f6ba65d1249d937bbad01de6cc9adcac"
+  integrity sha512-a8jRimgrATq2CS95SO5yjsZo2d4FbfmN2SrPu6lZjWIdstXm4KQSJFslyxovhoUjGNu5cZgzfXTvWkXRxJYCxA==
   dependencies:
     tslib "^2.2.0"
+
+"@angular/cdk@^12.2.5":
+  version "12.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-12.2.5.tgz#005c91eba34aa015a5a67b309b046008f8e69a5d"
+  integrity sha512-sB+chDISuQ2orEgWumVkEaaQ2Mkf5SDBlNGMwgwUV5a2eSp0wDprZS+3+H8lHc533z2Y4GOh6Apklku8XQT5qw==
+  dependencies:
+    tslib "^2.2.0"
+  optionalDependencies:
+    parse5 "^5.0.0"
 
 "@angular/cli@~12.1.0":
   version "12.1.4"
@@ -239,6 +248,13 @@
   dependencies:
     tslib "^2.2.0"
 
+"@angular/flex-layout@^12.0.0-beta.34":
+  version "12.0.0-beta.34"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-12.0.0-beta.34.tgz#24d83bf3f8e4eacb661b3b8f9f85b0102415ff30"
+  integrity sha512-nLwKovXpyG+/U3Lbmfwt+q4ARupxtbPmFTZD0Y8oItFAV6/Oh9l+QQsNQa2VhOHAOrVagyDwcEM+SePtB5EmrQ==
+  dependencies:
+    tslib "^2.1.0"
+
 "@angular/forms@^12.1.0":
   version "12.2.4"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-12.2.4.tgz#2fab23c604ca5fd8f5e39689a9399e4dcf45bac2"
@@ -250,6 +266,13 @@
   version "12.2.4"
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-12.2.4.tgz#f06cd74590a7509f8232450158ad3905d645e7c1"
   integrity sha512-cFIlXM7pyasM1rHHviK2vCGvYmB/ZxDlw33gRLWgxpUlhebwA7V5P+4sxmIzuw26+KJsEHq8zazkl35/1piMnQ==
+
+"@angular/material@^12.2.5":
+  version "12.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-12.2.5.tgz#5f95084a963a1c0d04b83f7798e53e8f596af54e"
+  integrity sha512-oQMNxxDtcR3evZaOdTyzCWRCHcM6V4AGJx4pbyzEpYPo9j4iKFGtTPLGEkWtsWNFZp/g7E7gx0sU3ssjRDt7Dw==
+  dependencies:
+    tslib "^2.2.0"
 
 "@angular/platform-browser-dynamic@^12.1.0":
   version "12.2.4"
@@ -9099,7 +9122,7 @@ parse5@6.0.1, parse5@^6.0.1:
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-6.0.1.tgz#e1a1c085c569b3dc08321184f19a39cc27f7c30b"
   integrity sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==
 
-parse5@^5.1.1:
+parse5@^5.0.0, parse5@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.1.tgz#f68e4e5ba1852ac2cadc00f4555fff6c2abb6178"
   integrity sha512-ugq4DFI0Ptb+WWjAdOK16+u/nHfiIrcE+sh8kZMaM0WllQKLI9rOUq6c2b7cwPkXdzfQESqvoqK6ug7U/Yyzug==

@@ -42,9 +42,6 @@
     "frontend-core-http": {
       "tags": []
     },
-    "frontend-core-routes": {
-      "tags": []
-    },
     "frontend-core-services": {
       "tags": []
     },
@@ -53,6 +50,9 @@
       "implicitDependencies": ["frontend"]
     },
     "interfaces": {
+      "tags": []
+    },
+    "material": {
       "tags": []
     },
     "ui": {

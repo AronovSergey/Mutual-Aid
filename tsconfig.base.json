@@ -20,13 +20,11 @@
       "@mutual-aid/frontend-core/http": [
         "libs/frontend-core/http/src/index.ts"
       ],
-      "@mutual-aid/frontend-core/routes": [
-        "libs/frontend-core/routes/src/index.ts"
-      ],
       "@mutual-aid/frontend-core/services": [
         "libs/frontend-core/services/src/index.ts"
       ],
       "@mutual-aid/interfaces": ["libs/interfaces/src/index.ts"],
+      "@mutual-aid/material": ["libs/material/src/index.ts"],
       "@mutual-aid/ui": ["libs/ui/src/index.ts"]
     }
   },
