@@ -1,1 +1,1 @@
-export * from './lib/frontend-core.module';
+export * from '../route-names/route-names';

@@ -1,25 +1,22 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ITodo } from '@mutual-aid/interfaces';
+import { IToken } from '@mutual-aid/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  private TODOS = '/todos';
-  
+  private USERS = 'users';
+  private LOGIN = 'login';
+
   private baseUrl: string;
   constructor(private http: HttpClient) {
-    this.baseUrl = '/api';
+    this.baseUrl = 'api';
   }
 
-  // -- TODO --
-  public getTodos(): Observable<ITodo[]> {
-    return this.http.get<ITodo[]>(this.baseUrl + this.TODOS);
-  }
-
-  public addTodo(): Observable<void> {
-    return this.http.post<void>(this.baseUrl + this.TODOS, {});
+  // -- Users --
+  public login(email: string, password: string): Observable<IToken> {
+    return this.http.post<IToken>(this.baseUrl + '/' + this.USERS + '/' + this.LOGIN, { email, password });
   }
 }

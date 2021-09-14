@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@mutual-aid/frontend-core/services';
+import { IToken } from '@mutual-aid/interfaces';
 
 @Component({
   selector: 'mutual-aid-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
 
-  constructor() { }
+  constructor(
+    private authService: AuthenticationService
+  ) { }
 
-  ngOnInit(): void {
+  login() {
+    this.authService.login('sergey@gmail.com', '123456').subscribe(
+      (token: IToken) => {
+        console.log(token);
+      }
+    )
   }
-
 }

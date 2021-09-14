@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RouteNames } from './route-names';
+import { RouteNames } from '@mutual-aid/frontend-core';
 import { RegistrationComponent } from '../modules/registration/components/registration/registration.component';
 import { LoginComponent } from '../modules/login/components/login/login.component';
+import { AdminOverviewComponent } from '../modules/admin/components/overview/overview.component';
 
 const routes: Routes = [
   {
-      path: RouteNames.REGISTRATION,
-      component: RegistrationComponent,
+    path: RouteNames.ADMIN,
+    component: AdminOverviewComponent,
   },
   {
-      path: RouteNames.LOGIN,
-      component: LoginComponent,
+    path: RouteNames.REGISTRATION,
+    component: RegistrationComponent,
+  },
+  {
+    path: RouteNames.LOGIN,
+    component: LoginComponent,
   },
   { path: '**', redirectTo: '/' + RouteNames.LOGIN, pathMatch: 'full' },
   { path: '', redirectTo: RouteNames.LOGIN, pathMatch: 'full' }
@@ -19,10 +24,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-      RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes)
   ],
   exports: [
-      RouterModule
+    RouterModule
   ],
 })
 export class FrontendRoutingModule { }

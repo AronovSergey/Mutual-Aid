@@ -1,2 +1,2 @@
-export * from './interfaces/todo.interface';
+export * from './interfaces/token.interface';
 export * from './interfaces/user.interface';
