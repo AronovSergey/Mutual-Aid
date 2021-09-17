@@ -31,3 +31,7 @@
 
     </div>
 </form>
+
+<h3 *ngIf="registerForm.invalid">Form contains following errors:</h3>
+<small *ngIf="registerForm.get('password')!.hasError('passwordInvalid')">Password is not containing a number</small><br>
+<small *ngIf="registerForm.hasError('passwordsNotMatching')">Password not matching</small>

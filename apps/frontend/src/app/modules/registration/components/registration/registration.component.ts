@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@mutual-aid/frontend-core/services';
 import { IUser } from '@mutual-aid/interfaces';
+import { CustomValidators } from '@mutual-aid/frontend-core';
 
 @Component({
   selector: 'mutual-aid-registration',
@@ -29,13 +30,13 @@ export class RegistrationComponent  {
       password: [null, [
         Validators.required,
         Validators.minLength(3),
-        //CustomValidators.passwordContainsNumber
+        CustomValidators.passwordContainsNumber
       ]],
       passwordConfirm: [null, [
         Validators.required
       ]]
     }, {
-      //validators: CustomValidators.passwordMatches,
+      validators: CustomValidators.passwordsMatch,
     })
   }
 
