@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IToken } from '@mutual-aid/interfaces';
+import { IToken, IUser } from '@mutual-aid/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +18,9 @@ export class HttpService {
   // -- Users --
   public login(email: string, password: string): Observable<IToken> {
     return this.http.post<IToken>(this.baseUrl + '/' + this.USERS + '/' + this.LOGIN, { email, password });
+  }
+
+  public register(user: IUser): Observable<IUser> {
+    return this.http.post<IUser>(this.baseUrl + '/' + this.USERS, user);
   }
 }
