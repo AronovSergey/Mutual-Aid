@@ -1,9 +1,8 @@
-import { MaterialModule } from '@mutual-aid/material';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegistrationComponent } from './components/registration/registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { MaterialModule } from '@mutual-aid/material';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 
 @NgModule({

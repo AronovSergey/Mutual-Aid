@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IToken, IUser } from '@mutual-aid/interfaces';
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class HttpService {
   }
 
   // -- Users --
+  public getAllUsers(page: number, limit: number): Observable<Pagination<IUser>> {
+    return this.http.get<Pagination<IUser>>(this.baseUrl + '/' + this.USERS, { params: { page, limit } });
+  }
+
   public login(email: string, password: string): Observable<IToken> {
     return this.http.post<IToken>(this.baseUrl + '/' + this.USERS + '/' + this.LOGIN, { email, password });
   }

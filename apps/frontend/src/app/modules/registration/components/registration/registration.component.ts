@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@mutual-aid/frontend-core/services';
@@ -10,7 +10,7 @@ import { CustomValidators } from '@mutual-aid/frontend-core';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent  {
+export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup;
 
@@ -18,8 +18,10 @@ export class RegistrationComponent  {
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private router: Router,
-  ) {
-    this.registerForm =  this.formBuilder.group({
+  ) { }
+
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
       name: [null, [Validators.required]],
       username: [null, [Validators.required]],
       email: [null, [
@@ -41,10 +43,10 @@ export class RegistrationComponent  {
   }
 
   onSubmit() {
-    if(this.registerForm.valid){
+    if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe(
         (user: IUser) => {
-          if(user) {
+          if (user) {
             this.router.navigate(['login']);
           }
         }

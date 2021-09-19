@@ -10,9 +10,23 @@ import { RouteNames } from '@mutual-aid/frontend-core';
 export class HeaderComponent  {
 
   public RouteNames = RouteNames;
+  public entries = [
+    {
+      name: 'Login',
+      link: RouteNames.LOGIN
+    },
+    {
+      name: 'Register',
+      link: RouteNames.REGISTRATION
+    }
+  ];
 
   constructor(
     private router: Router,
   ) { }
+
+  navigateTo(value: string) {
+    this.router.navigate(['../', value]);
+  }
 
 }

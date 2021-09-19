@@ -3,4 +3,5 @@ export enum RouteNames {
     LOGIN = 'login',
     HOME = 'home',
     ADMIN = 'admin',
+    USERS = 'users',
 }

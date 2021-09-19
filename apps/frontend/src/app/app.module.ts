@@ -4,9 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { FrontendRoutingModule } from './routes/frontend-routing.module';
+import { UiModule } from '@mutual-aid/ui'
+
+
+// modules 
 import { RegistrationModule } from './modules/registration/registration.module';
 import { LoginModule } from './modules/login/login.module';
-import { UiModule } from '@mutual-aid/ui'
+import { AdminModule } from './modules/admin/admin.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +22,7 @@ import { UiModule } from '@mutual-aid/ui'
     FrontendRoutingModule,
     RegistrationModule,
     LoginModule,
+    AdminModule,
   ],
   providers: [],
   bootstrap: [
