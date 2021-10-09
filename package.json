@@ -7,7 +7,7 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "nx run-many --parallel --target=serve --projects=frontend,backend",
     "build": "nx build",
-    "test": "nx test"
+    "test": "npx nx e2e frontend-e2e --watch"
   },
   "private": true,
   "dependencies": {

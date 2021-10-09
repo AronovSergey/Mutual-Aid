@@ -33,8 +33,7 @@ export class UsersComponent implements OnInit {
   }
 
   getAllUsersByUsername(username: string) {
-      const page = this.pageEvent.pageIndex + 1;
-      const size = this.pageEvent.pageSize;
-      this.userService.getAllUsers(page, size, username).subscribe((users: Pagination<IUser>) => this.users = users);
+      this.pageEvent.pageIndex = 0;
+      this.userService.getAllUsers(1, this.pageEvent.pageSize, username).subscribe((users: Pagination<IUser>) => this.users = users);
   }
 }
