@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult, DeleteResult } from 'typeorm';
+import { Repository, UpdateResult, DeleteResult, FindManyOptions, ILike } from 'typeorm';
 import { from, Observable, throwError } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators'
 import { IUser } from '@mutual-aid/interfaces';
@@ -43,8 +43,9 @@ export class UserService {
         return from(this.userRepository.findOne({ email }));
     }
 
-    findAll(options: IPaginationOptions): Observable<Pagination<IUser>> {
-        return from(paginate<IUser>(this.userRepository, options));
+    findAll(options: IPaginationOptions, username = ""): Observable<Pagination<IUser>> {
+        const findManyOptions: FindManyOptions = { order: { id: "ASC" }, where: { username: ILike(`%${username}%`) } };
+        return from(paginate<IUser>(this.userRepository, options, findManyOptions));
     }
 
     deleteOne(id: number): Observable<DeleteResult> {

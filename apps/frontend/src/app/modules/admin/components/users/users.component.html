@@ -1,4 +1,11 @@
 <h1>All Users</h1>
+
+<mat-form-field>
+    <mat-label>Filter by Username</mat-label>
+    <input matInput type="text" [(ngModel)]="usernameFilterValue" 
+    (input)="getAllUsersByUsername(usernameFilterValue)" placeholder="Search Username">
+</mat-form-field>
+
 <div *ngIf="users">
     <mat-table [dataSource]="users.items">
 

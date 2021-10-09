@@ -17,8 +17,13 @@ export class HttpService {
   }
 
   // -- Users --
-  public getAllUsers(page: number, limit: number): Observable<Pagination<IUser>> {
-    return this.http.get<Pagination<IUser>>(this.baseUrl + '/' + this.USERS, { params: { page, limit } });
+  public getAllUsers(page: number, limit: number, username?: string): Observable<Pagination<IUser>> {
+    const params: { page: number, limit: number, username?: string } = { page, limit };
+    if(username) {
+      params.username = username;
+    }
+
+    return this.http.get<Pagination<IUser>>(this.baseUrl + '/' + this.USERS, { params });
   }
 
   public login(email: string, password: string): Observable<IToken> {

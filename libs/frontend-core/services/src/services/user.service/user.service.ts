@@ -12,8 +12,8 @@ export class UserService {
 
   constructor(private http: HttpService) { }
 
-  getAllUsers(page: number, numberOfItemsPerPage: number): Observable<Pagination<IUser>> {
-    return this.http.getAllUsers(page, numberOfItemsPerPage).pipe(
+  getAllUsers(page: number, numberOfItemsPerPage: number, username?: string): Observable<Pagination<IUser>> {
+    return this.http.getAllUsers(page, numberOfItemsPerPage, username).pipe(
       tap((users: Pagination<IUser>) => users),
       catchError((err) => throwError(err))
     )

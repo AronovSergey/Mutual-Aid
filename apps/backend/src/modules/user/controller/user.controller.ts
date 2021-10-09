@@ -33,23 +33,23 @@ export class UserController {
 
     @Get(':id')
     findOne(@Param('id') id: string): Observable<IUser> {
-        return this.userService.findOne(Number(id))
+        return this.userService.findOne(Number(id));
     }
 
     @Get()
-    findAll(@Query('page') page = 1, @Query('limit') limit = 10): Observable<Pagination<IUser>> {
+    findAll(@Query('page') page = 1, @Query('limit') limit = 10, @Query('username') username: string): Observable<Pagination<IUser>> {
         limit = (limit > 100) ? 100 : limit;
-        return this.userService.findAll({ page: Number(page), limit: Number(limit), route: 'http://localhost:3333/api/users' })
+        return this.userService.findAll({ page: Number(page), limit: Number(limit), route: 'http://localhost:3333/api/users'}, username);
     }
 
     @Delete(':id')
     deleteOne(@Param('id') id: string): Observable<DeleteResult> {
-        return this.userService.deleteOne(Number(id))
+        return this.userService.deleteOne(Number(id));
     }
 
     @Put(':id')
     updateOne(@Param('id') id: string, @Body() user: IUser): Observable<UpdateResult> {
-        return this.userService.updateOne(Number(id), user)
+        return this.userService.updateOne(Number(id), user);
     }
 
     @hasRoles(UserRole.ADMIN)
