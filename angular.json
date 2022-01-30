@@ -8,12 +8,16 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/backend",
             "main": "apps/backend/src/main.ts",
             "tsConfig": "apps/backend/tsconfig.app.json",
-            "assets": ["apps/backend/src/assets"]
+            "assets": [
+              "apps/backend/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -38,18 +42,26 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/backend/**/*.ts"]
-          }
+            "lintFilePatterns": [
+              "apps/backend/**/*.ts"
+            ]
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/backend"],
+          "outputs": [
+            "coverage/apps/backend"
+          ],
           "options": {
             "jestConfig": "apps/backend/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "enums": {
       "projectType": "library",
@@ -59,7 +71,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/enums"],
+          "outputs": [
+            "coverage/libs/enums"
+          ],
           "options": {
             "jestConfig": "libs/enums/jest.config.js",
             "passWithNoTests": true
@@ -72,9 +86,13 @@
               "libs/enums/src/**/*.ts",
               "libs/enums/src/**/*.html"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
-      }
+      },
+      "tags": []
     },
     "frontend": {
       "projectType": "application",
@@ -84,7 +102,9 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/frontend",
             "index": "apps/frontend/src/index.html",
@@ -96,7 +116,9 @@
               "apps/frontend/src/favicon.ico",
               "apps/frontend/src/assets"
             ],
-            "styles": ["apps/frontend/src/styles.scss"],
+            "styles": [
+              "apps/frontend/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -160,17 +182,23 @@
               "apps/frontend/src/**/*.ts",
               "apps/frontend/src/**/*.html"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/frontend"],
+          "outputs": [
+            "coverage/apps/frontend"
+          ],
           "options": {
             "jestConfig": "apps/frontend/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "frontend-core": {
       "projectType": "library",
@@ -180,7 +208,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/frontend-core"],
+          "outputs": [
+            "coverage/libs/frontend-core"
+          ],
           "options": {
             "jestConfig": "libs/frontend-core/jest.config.js",
             "passWithNoTests": true
@@ -193,9 +223,13 @@
               "libs/frontend-core/src/**/*.ts",
               "libs/frontend-core/src/**/*.html"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
-      }
+      },
+      "tags": []
     },
     "frontend-core-http": {
       "projectType": "library",
@@ -205,7 +239,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/frontend-core/http"],
+          "outputs": [
+            "coverage/libs/frontend-core/http"
+          ],
           "options": {
             "jestConfig": "libs/frontend-core/http/jest.config.js",
             "passWithNoTests": true
@@ -218,9 +254,13 @@
               "libs/frontend-core/http/src/**/*.ts",
               "libs/frontend-core/http/src/**/*.html"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
-      }
+      },
+      "tags": []
     },
     "frontend-core-services": {
       "projectType": "library",
@@ -230,7 +270,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/frontend-core/services"],
+          "outputs": [
+            "coverage/libs/frontend-core/services"
+          ],
           "options": {
             "jestConfig": "libs/frontend-core/services/jest.config.js",
             "passWithNoTests": true
@@ -243,9 +285,13 @@
               "libs/frontend-core/services/src/**/*.ts",
               "libs/frontend-core/services/src/**/*.html"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
-      }
+      },
+      "tags": []
     },
     "frontend-e2e": {
       "root": "apps/frontend-e2e",
@@ -268,10 +314,19 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/frontend-e2e/**/*.{js,ts}"]
-          }
+            "lintFilePatterns": [
+              "apps/frontend-e2e/**/*.{js,ts}"
+            ]
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": [
+        "frontend"
+      ]
     },
     "interfaces": {
       "root": "libs/interfaces",
@@ -281,18 +336,26 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/interfaces/**/*.ts"]
-          }
+            "lintFilePatterns": [
+              "libs/interfaces/**/*.ts"
+            ]
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/interfaces"],
+          "outputs": [
+            "coverage/libs/interfaces"
+          ],
           "options": {
             "jestConfig": "libs/interfaces/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "material": {
       "projectType": "library",
@@ -302,7 +365,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/material"],
+          "outputs": [
+            "coverage/libs/material"
+          ],
           "options": {
             "jestConfig": "libs/material/jest.config.js",
             "passWithNoTests": true
@@ -315,9 +380,13 @@
               "libs/material/src/**/*.ts",
               "libs/material/src/**/*.html"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
-      }
+      },
+      "tags": []
     },
     "ui": {
       "projectType": "library",
@@ -327,7 +396,9 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ui"],
+          "outputs": [
+            "coverage/libs/ui"
+          ],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
@@ -336,42 +407,17 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
-          }
+            "lintFilePatterns": [
+              "libs/ui/src/**/*.ts",
+              "libs/ui/src/**/*.html"
+            ]
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
-      }
-    }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "packageManager": "npm"
-  },
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
       },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
+      "tags": []
     }
-  },
-  "defaultProject": "frontend"
+  }
 }

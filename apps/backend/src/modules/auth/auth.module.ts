@@ -8,18 +8,18 @@ import { JwtStrategy } from './guards/jwt.strategy';
 import { UserModule } from '../user/user.module';
 
 @Module({
-    imports: [
-        forwardRef(() => UserModule),
-        JwtModule.registerAsync({
-            imports: [ConfigModule],
-            inject: [ConfigService],
-            useFactory: async (configService: ConfigService) => ({
-                secret: configService.get('JWT_SECRET'),
-                signOptions: { expiresIn: '1h'}
-            })
-        }),
-    ],
-    providers: [AuthService, RolesGuard, JwtAuthGuard, JwtStrategy], 
-    exports: [AuthService],
+  imports: [
+    forwardRef(() => UserModule),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '1h' },
+      }),
+    }),
+  ],
+  providers: [AuthService, RolesGuard, JwtAuthGuard, JwtStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}

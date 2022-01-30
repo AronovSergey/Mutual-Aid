@@ -6,17 +6,8 @@ import { MaterialModule } from '@mutual-aid/material';
 import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    MaterialModule,
-    RouterModule,
-  ],
-  declarations: [
-    HeaderComponent
-  ],
-  exports: [
-    HeaderComponent
-  ]
+  imports: [CommonModule, BrowserModule, MaterialModule, RouterModule],
+  declarations: [HeaderComponent],
+  exports: [HeaderComponent],
 })
-export class UiModule { }
+export class UiModule {}

@@ -26,16 +26,11 @@ const routes: Routes = [
     component: UsersComponent,
   },
   { path: '**', redirectTo: '/' + RouteNames.LOGIN, pathMatch: 'full' },
-  { path: '', redirectTo: RouteNames.LOGIN, pathMatch: 'full' }
+  { path: '', redirectTo: RouteNames.LOGIN, pathMatch: 'full' },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [
-    RouterModule
-  ],
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class FrontendRoutingModule { }
-
+export class FrontendRoutingModule {}

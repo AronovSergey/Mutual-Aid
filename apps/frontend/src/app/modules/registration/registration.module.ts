@@ -4,16 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@mutual-aid/material';
 import { RegistrationComponent } from './components/registration/registration.component';
 
-
 @NgModule({
-  declarations: [
-    RegistrationComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule, 
-  ]
+  declarations: [RegistrationComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
 })
-export class RegistrationModule { }
+export class RegistrationModule {}

@@ -1,15 +1,18 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <span>Third Line</span>
-        <span class="example-spacer"></span>
-        <button mat-flat-button [routerLink]="[RouteNames.USERS]">Users</button>
-        <button mat-flat-button [routerLink]="[RouteNames.ADMIN]">Admin</button>
-        <mat-form-field class="select" name="loginRegisterDropdown">
-            <mat-select placeholder="Login" (selectionChange)="navigateTo($event.value)">
-                <mat-option *ngFor="let entry of entries" [value]="entry.link">
-                    {{entry.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </mat-toolbar-row>
+  <mat-toolbar-row>
+    <span>Third Line</span>
+    <span class="example-spacer"></span>
+    <button mat-flat-button [routerLink]="[RouteNames.USERS]">Users</button>
+    <button mat-flat-button [routerLink]="[RouteNames.ADMIN]">Admin</button>
+    <mat-form-field class="select" name="loginRegisterDropdown">
+      <mat-select
+        placeholder="Login"
+        (selectionChange)="navigateTo($event.value)"
+      >
+        <mat-option *ngFor="let entry of entries" [value]="entry.link">
+          {{ entry.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
 </mat-toolbar>

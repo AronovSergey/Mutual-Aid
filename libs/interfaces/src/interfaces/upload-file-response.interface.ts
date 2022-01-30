@@ -1,3 +1,3 @@
 export interface IUploadFileResponse {
-    imagePath: string;
+  imagePath: string;
 }

@@ -5,7 +5,7 @@ import { IToken, IUser } from '@mutual-aid/interfaces';
 import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpService {
   private USERS = 'users';
@@ -17,17 +17,29 @@ export class HttpService {
   }
 
   // -- Users --
-  public getAllUsers(page: number, limit: number, username?: string): Observable<Pagination<IUser>> {
-    const params: { page: number, limit: number, username?: string } = { page, limit };
-    if(username) {
+  public getAllUsers(
+    page: number,
+    limit: number,
+    username?: string
+  ): Observable<Pagination<IUser>> {
+    const params: { page: number; limit: number; username?: string } = {
+      page,
+      limit,
+    };
+    if (username) {
       params.username = username;
     }
 
-    return this.http.get<Pagination<IUser>>(this.baseUrl + '/' + this.USERS, { params });
+    return this.http.get<Pagination<IUser>>(this.baseUrl + '/' + this.USERS, {
+      params,
+    });
   }
 
   public login(email: string, password: string): Observable<IToken> {
-    return this.http.post<IToken>(this.baseUrl + '/' + this.USERS + '/' + this.LOGIN, { email, password });
+    return this.http.post<IToken>(
+      this.baseUrl + '/' + this.USERS + '/' + this.LOGIN,
+      { email, password }
+    );
   }
 
   public register(user: IUser): Observable<IUser> {

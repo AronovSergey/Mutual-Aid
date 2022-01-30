@@ -7,38 +7,37 @@ import { IToken } from '@mutual-aid/interfaces';
 @Component({
   selector: 'mutual-aid-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
   public loginForm: FormGroup;
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router,
+    private router: Router
   ) {
-    this.loginForm =  new FormGroup({
+    this.loginForm = new FormGroup({
       email: new FormControl(null, [
         Validators.required,
         Validators.email,
         Validators.minLength(6),
-      ]), 
+      ]),
       password: new FormControl(null, [
         Validators.required,
         Validators.minLength(3),
-      ])
-    })
+      ]),
+    });
   }
 
   onSubmit() {
-    if(this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe(
-        (token: IToken) => {
-          if(token) {
-            this.router.navigate(['admin']); 
+    if (this.loginForm.valid) {
+      this.authService
+        .login(this.loginForm.value)
+        .subscribe((token: IToken) => {
+          if (token) {
+            this.router.navigate(['admin']);
           }
-        }
-      )
+        });
     }
   }
 }

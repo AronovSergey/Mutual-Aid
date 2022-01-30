@@ -5,18 +5,8 @@ import { UsersComponent } from './components/users/users.component';
 import { MaterialModule } from '@mutual-aid/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
-  declarations: [
-    OverviewComponent,
-    UsersComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule, 
-  ]
+  declarations: [OverviewComponent, UsersComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
 })
-export class AdminModule { }
+export class AdminModule {}

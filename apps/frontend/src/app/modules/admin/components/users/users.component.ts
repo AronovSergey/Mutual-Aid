@@ -7,10 +7,9 @@ import { IUser } from '@mutual-aid/interfaces';
 @Component({
   selector: 'mutual-aid-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-
   public users: Pagination<IUser>;
   public displayColumns = ['id', 'name', 'username', 'email', 'role'];
   public pageEvent: PageEvent;
@@ -23,17 +22,23 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getAllUsers(1, 10).subscribe((users: Pagination<IUser>) => this.users = users);
+    this.userService
+      .getAllUsers(1, 10)
+      .subscribe((users: Pagination<IUser>) => (this.users = users));
   }
 
   onPaginateChange(event: PageEvent) {
     const page = event.pageIndex + 1;
     const size = event.pageSize;
-    this.userService.getAllUsers(page, size, this.usernameFilterValue).subscribe((users: Pagination<IUser>) => this.users = users);
+    this.userService
+      .getAllUsers(page, size, this.usernameFilterValue)
+      .subscribe((users: Pagination<IUser>) => (this.users = users));
   }
 
   getAllUsersByUsername(username: string) {
-      this.pageEvent.pageIndex = 0;
-      this.userService.getAllUsers(1, this.pageEvent.pageSize, username).subscribe((users: Pagination<IUser>) => this.users = users);
+    this.pageEvent.pageIndex = 0;
+    this.userService
+      .getAllUsers(1, this.pageEvent.pageSize, username)
+      .subscribe((users: Pagination<IUser>) => (this.users = users));
   }
 }

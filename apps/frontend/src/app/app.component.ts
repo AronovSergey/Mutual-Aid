@@ -6,9 +6,5 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-
-  constructor(
-    private router: Router,
-  ) { }
-  
+  constructor(private router: Router) {}
 }
