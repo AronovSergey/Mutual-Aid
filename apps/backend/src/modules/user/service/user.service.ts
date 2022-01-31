@@ -79,6 +79,7 @@ export class UserService {
   }
 
   login(user: IUser): Observable<string> {
+    console.log(user);
     return this.validateUser(user.email, user.password).pipe(
       switchMap((user: IUser) => {
         return this.authService
@@ -92,7 +93,7 @@ export class UserService {
     return from(
       this.userRepository.findOne({
         where: { email },
-        select: ['id', 'password'],
+        select: ['id', 'name', 'username', 'email', 'password', 'role'],
       })
     ).pipe(
       switchMap((user: IUser) => {

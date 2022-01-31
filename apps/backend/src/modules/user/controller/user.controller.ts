@@ -10,6 +10,8 @@ import {
   Query,
   UseInterceptors,
   UploadedFile,
+  Request,
+  Res,
 } from '@nestjs/common';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { Observable, of } from 'rxjs';
@@ -19,6 +21,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import path = require('path');
+import { join } from 'path';
 
 import { IUser, IUploadFileResponse } from '@mutual-aid/interfaces';
 import { UserRole } from '@mutual-aid/enums';
@@ -27,9 +30,23 @@ import { hasRoles } from '../../auth/decorator/roles.decorator';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { JwtAuthGuard } from './../../auth/guards/jwt-guard';
 
+const PROFILE_IMAGE_STORAGE_PATH = 'uploads/profileimages'
+const storge = {
+  storage: diskStorage({
+    destination: './' + PROFILE_IMAGE_STORAGE_PATH,
+    filename: (req, file, cb) => {
+      const filename: string =
+        path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
+      const extension: string = path.parse(file.originalname).ext;
+
+      cb(null, `${filename}${extension}`);
+    },
+  }),
+};
+
 @Controller('users')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   @Post()
   create(@Body() user: IUser): Observable<IUser | Record<'error', string>> {
@@ -40,32 +57,11 @@ export class UserController {
   }
 
   @Post('login')
-  login(
-    @Body() user: IUser
-  ): Observable<Record<'access_token', string> | Record<'error', string>> {
+  login(@Body() user: IUser): Observable<Record<'access_token', string> | Record<'error', string>> {
     return this.userService.login(user).pipe(
       map((jwt: string) => ({ access_token: jwt })),
       catchError((err) => of({ error: err.message }))
     );
-  }
-
-  @Post('upload')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './uploads/profileimages',
-        filename: (req, file, cb) => {
-          const filename: string =
-            path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
-          const extension: string = path.parse(file.originalname).ext;
-
-          cb(null, `${filename}${extension}`);
-        },
-      }),
-    })
-  )
-  uploadFile(@UploadedFile() file): Observable<IUploadFileResponse> {
-    return of({ imagePath: file.path });
   }
 
   @Get(':id')
@@ -74,11 +70,7 @@ export class UserController {
   }
 
   @Get()
-  findAll(
-    @Query('page') page = 1,
-    @Query('limit') limit = 10,
-    @Query('username') username: string
-  ): Observable<Pagination<IUser>> {
+  findAll(@Query('page') page = 1, @Query('limit') limit = 10, @Query('username') username: string): Observable<Pagination<IUser>> {
     limit = limit > 100 ? 100 : limit;
     return this.userService.findAll(
       {
@@ -96,20 +88,29 @@ export class UserController {
   }
 
   @Put(':id')
-  updateOne(
-    @Param('id') id: string,
-    @Body() user: IUser
-  ): Observable<UpdateResult> {
+  updateOne(@Param('id') id: string, @Body() user: IUser): Observable<UpdateResult> {
     return this.userService.updateOne(Number(id), user);
   }
 
   @hasRoles(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Put(':id/role')
-  updateRole(
-    @Param('id') id: string,
-    @Body() user: IUser
-  ): Observable<UpdateResult> {
+  updateRole(@Param('id') id: string, @Body() user: IUser): Observable<UpdateResult> {
     return this.userService.updateRole(Number(id), user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file', storge))
+  uploadFile(@UploadedFile() file, @Request() req): Observable<IUploadFileResponse> {
+    const user: IUser = req.user;
+    return this.userService.updateOne(user.id, { profileImage: file.filename }).pipe(
+      map(() => ({ imagePath: file.filename }))
+    );
+  }
+
+  @Get('profile-image/:imagename')
+  findProfileImage(@Param('imagename') imagename, @Res() res): Observable<string> {
+    return of(res.sendFile(join(process.cwd(), PROFILE_IMAGE_STORAGE_PATH + '/' + imagename)));
   }
 }
