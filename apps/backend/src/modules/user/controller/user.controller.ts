@@ -20,15 +20,16 @@ import { Pagination } from 'nestjs-typeorm-paginate';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
-import path = require('path');
 import { join } from 'path';
+import path = require('path');
 
 import { IUser, IUploadFileResponse } from '@mutual-aid/interfaces';
 import { UserRole } from '@mutual-aid/enums';
 import { UserService } from '../service/user.service';
 import { hasRoles } from '../../auth/decorator/roles.decorator';
 import { RolesGuard } from '../../auth/guards/roles.guard';
-import { JwtAuthGuard } from './../../auth/guards/jwt-guard';
+import { JwtAuthGuard } from '../../auth/guards/jwt.guard';
+import { EditProfileGuard } from '../../auth/guards/edit-profile.guard';
 
 const PROFILE_IMAGE_STORAGE_PATH = 'uploads/profileimages'
 const storge = {
@@ -48,6 +49,24 @@ const storge = {
 export class UserController {
   constructor(private userService: UserService) { }
 
+  @Get()
+  findAll(@Query('page') page = 1, @Query('limit') limit = 10, @Query('username') username: string): Observable<Pagination<IUser>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.userService.findAll(
+      {
+        page: Number(page),
+        limit: Number(limit),
+        route: 'http://localhost:3333/api/users',
+      },
+      username
+    );
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string): Observable<IUser> {
+    return this.userService.findOne(Number(id));
+  }
+
   @Post()
   create(@Body() user: IUser): Observable<IUser | Record<'error', string>> {
     return this.userService.create(user).pipe(
@@ -64,29 +83,7 @@ export class UserController {
     );
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Observable<IUser> {
-    return this.userService.findOne(Number(id));
-  }
-
-  @Get()
-  findAll(@Query('page') page = 1, @Query('limit') limit = 10, @Query('username') username: string): Observable<Pagination<IUser>> {
-    limit = limit > 100 ? 100 : limit;
-    return this.userService.findAll(
-      {
-        page: Number(page),
-        limit: Number(limit),
-        route: 'http://localhost:3333/api/users',
-      },
-      username
-    );
-  }
-
-  @Delete(':id')
-  deleteOne(@Param('id') id: string): Observable<DeleteResult> {
-    return this.userService.deleteOne(Number(id));
-  }
-
+  @UseGuards(JwtAuthGuard, EditProfileGuard)
   @Put(':id')
   updateOne(@Param('id') id: string, @Body() user: IUser): Observable<UpdateResult> {
     return this.userService.updateOne(Number(id), user);
@@ -99,6 +96,12 @@ export class UserController {
     return this.userService.updateRole(Number(id), user);
   }
 
+  @Delete(':id')
+  deleteOne(@Param('id') id: string): Observable<DeleteResult> {
+    return this.userService.deleteOne(Number(id));
+  }
+
+  // Profile Image Section
   @UseGuards(JwtAuthGuard)
   @Post('upload')
   @UseInterceptors(FileInterceptor('file', storge))
