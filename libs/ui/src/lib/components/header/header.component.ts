@@ -18,6 +18,10 @@ export class HeaderComponent {
       name: 'Register',
       link: RouteNames.REGISTRATION,
     },
+    {
+      name: 'Update Profile',
+      link: RouteNames.UPDATE_PROFILE,
+    },
   ];
 
   constructor(private router: Router) {}

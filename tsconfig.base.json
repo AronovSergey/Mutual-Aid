@@ -17,8 +17,17 @@
     "paths": {
       "@mutual-aid/enums": ["libs/enums/src/index.ts"],
       "@mutual-aid/frontend-core": ["libs/frontend-core/src/index.ts"],
+      "@mutual-aid/frontend-core/constants": [
+        "libs/frontend-core/constants/src/index.ts"
+      ],
+      "@mutual-aid/frontend-core/guards": [
+        "libs/frontend-core/guards/src/index.ts"
+      ],
       "@mutual-aid/frontend-core/http": [
         "libs/frontend-core/http/src/index.ts"
+      ],
+      "@mutual-aid/frontend-core/interceptors": [
+        "libs/frontend-core/interceptors/src/index.ts"
       ],
       "@mutual-aid/frontend-core/services": [
         "libs/frontend-core/services/src/index.ts"

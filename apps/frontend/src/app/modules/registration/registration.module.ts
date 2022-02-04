@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@mutual-aid/material';
-import { RegistrationComponent } from './components/registration/registration.component';
+import { RegistrationComponent } from './registration.component';
 
 @NgModule({
   declarations: [RegistrationComponent],
