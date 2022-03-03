@@ -30,6 +30,7 @@ import { hasRoles } from '../../auth/decorator/roles.decorator';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { JwtAuthGuard } from '../../auth/guards/jwt.guard';
 import { EditProfileGuard } from '../../auth/guards/edit-profile.guard';
+import { globalPrefix, port } from '../../../main';
 
 const PROFILE_IMAGE_STORAGE_PATH = 'uploads/profileimages'
 const storge = {
@@ -103,12 +104,13 @@ export class UserController {
 
   // Profile Image Section
   @UseGuards(JwtAuthGuard)
-  @Post('upload')
+  @Post('upload_profile-image')
   @UseInterceptors(FileInterceptor('file', storge))
   uploadFile(@UploadedFile() file, @Request() req): Observable<IUploadFileResponse> {
+    const BASE_URL: string = 'http://localhost:' + port + '/' + globalPrefix + '/users/profile-image/';
     const user: IUser = req.user;
-    return this.userService.updateOne(user.id, { profileImage: file.filename }).pipe(
-      map(() => ({ imagePath: file.filename }))
+    return this.userService.updateOne(user.id, { profileImage: BASE_URL + file.filename }).pipe(
+      map(() => ({ imagePath: BASE_URL + file.filename }))
     );
   }
 

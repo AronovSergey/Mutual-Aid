@@ -3,6 +3,7 @@ import { Pagination } from 'nestjs-typeorm-paginate';
 import { PageEvent } from '@angular/material/paginator';
 import { UserService } from '@mutual-aid/frontend-core/services';
 import { IUser } from '@mutual-aid/interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'mutual-aid-users',
@@ -15,13 +16,17 @@ export class UsersComponent implements OnInit {
   public pageEvent: PageEvent;
   public usernameFilterValue: string;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService
+  ) { }
+
+  ngOnInit() {
     this.pageEvent = new PageEvent();
     this.pageEvent.pageIndex = 0;
     this.pageEvent.pageSize = 10;
-  }
 
-  ngOnInit() {
     this.userService
       .getAllUsers(1, 10)
       .subscribe((users: Pagination<IUser>) => (this.users = users));
@@ -40,5 +45,9 @@ export class UsersComponent implements OnInit {
     this.userService
       .getAllUsers(1, this.pageEvent.pageSize, username)
       .subscribe((users: Pagination<IUser>) => (this.users = users));
+  }
+
+  navigateToProfile(id: string) {
+    this.router.navigate(['./', id], { relativeTo: this.activatedRoute });
   }
 }

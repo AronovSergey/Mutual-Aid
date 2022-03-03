@@ -5,4 +5,5 @@ export enum RouteNames {
   ADMIN = 'admin',
   USERS = 'users',
   UPDATE_PROFILE = 'update_profile',
+  ID = "id",
 }

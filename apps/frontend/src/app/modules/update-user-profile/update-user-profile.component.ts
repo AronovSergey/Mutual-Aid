@@ -9,7 +9,6 @@ export class UpdateUserProfileComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

@@ -9,10 +9,10 @@ import { UiModule } from '@mutual-aid/ui';
 import { JwtInterceptor } from '@mutual-aid/frontend-core/interceptors';
 // modules
 import { FrontendRoutingModule } from './routes/frontend-routing.module';
-import { RegistrationModule } from './modules/registration/registration.module';
-import { LoginModule } from './modules/login/login.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { UpdateUserProfileModule } from './modules/update-user-profile/update-user-profile.module';
+import { UserProfileModule } from './modules/user-profile/user-profile.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,10 +22,10 @@ import { UpdateUserProfileModule } from './modules/update-user-profile/update-us
     BrowserAnimationsModule,
     UiModule,
     FrontendRoutingModule,
-    RegistrationModule,
-    LoginModule,
+    AuthModule,
     AdminModule,
     UpdateUserProfileModule,
+    UserProfileModule,
   ],
   providers: [
     JwtHelperService,

@@ -79,7 +79,6 @@ export class UserService {
   }
 
   login(user: IUser): Observable<string> {
-    console.log(user);
     return this.validateUser(user.email, user.password).pipe(
       switchMap((user: IUser) => {
         return this.authService

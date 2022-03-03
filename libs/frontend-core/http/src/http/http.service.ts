@@ -17,29 +17,22 @@ export class HttpService {
   }
 
   // -- Users --
-  public getAllUsers(
-    page: number,
-    limit: number,
-    username?: string
-  ): Observable<Pagination<IUser>> {
-    const params: { page: number; limit: number; username?: string } = {
-      page,
-      limit,
-    };
+  public getUserById(id: string): Observable<IUser> {
+    return this.http.get<IUser>(this.baseUrl + '/' + this.USERS + '/' + id);
+  }
+
+  public getAllUsers(page: number, limit: number, username?: string): Observable<Pagination<IUser>> {
+    const params: { page: number; limit: number; username?: string } = { page, limit };
     if (username) {
       params.username = username;
     }
-
-    return this.http.get<Pagination<IUser>>(this.baseUrl + '/' + this.USERS, {
-      params,
-    });
+    return this.http.get<Pagination<IUser>>(this.baseUrl + '/' + this.USERS, { params });
   }
 
+  // -- Auth --
+
   public login(email: string, password: string): Observable<IToken> {
-    return this.http.post<IToken>(
-      this.baseUrl + '/' + this.USERS + '/' + this.LOGIN,
-      { email, password }
-    );
+    return this.http.post<IToken>(this.baseUrl + '/' + this.USERS + '/' + this.LOGIN, { email, password });
   }
 
   public register(user: IUser): Observable<IUser> {
