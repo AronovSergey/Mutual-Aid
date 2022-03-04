@@ -12,10 +12,10 @@ export class AuthenticationService {
 
   constructor(
     private readonly httpService: HttpService,
-    private readonly jwtHelperService: JwtHelperService,
+    private readonly jwtHelper: JwtHelperService,
   ) { }
 
-  login(loginForm: ILoginForm): Observable<IToken> {
+  public login(loginForm: ILoginForm): Observable<IToken> {
     return this.httpService.login(loginForm.email, loginForm.password).pipe(
       map((token: IToken) => {
         localStorage.setItem(constants.JWT_TOKEN_NAME, token.access_token);
@@ -24,12 +24,21 @@ export class AuthenticationService {
     );
   }
 
-  register(user: IUser): Observable<IUser> {
+  public register(user: IUser): Observable<IUser> {
     return this.httpService.register(user).pipe(tap((user: IUser) => user));
   }
 
-  isAuthenticated(): boolean {
-    const token = localStorage.getItem(constants.JWT_TOKEN_NAME) as string;
-    return (token) ? !this.jwtHelperService.isTokenExpired(token) : false;
+  public isAuthenticated(): boolean {
+    const token: string | null = localStorage.getItem(constants.JWT_TOKEN_NAME);
+    return (token) ? !this.jwtHelper.isTokenExpired(token) : false;
   }
+
+  public getActiveUser(): IUser | undefined {
+    const token: string | null = localStorage.getItem(constants.JWT_TOKEN_NAME);
+    if (!token) {
+      return ;
+    }
+    return this.jwtHelper.decodeToken(token).user;
+  }
+
 }

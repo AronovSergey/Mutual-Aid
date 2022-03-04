@@ -11,7 +11,7 @@ import { CustomValidators } from '@mutual-aid/frontend-core';
   styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
-  registerForm: FormGroup;
+  public registerForm: FormGroup;
 
   constructor(
     private authService: AuthenticationService,
@@ -44,7 +44,7 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  onSubmit() {
+  public onSubmit() {
     if (this.registerForm.valid) {
       this.authService
         .register(this.registerForm.value)

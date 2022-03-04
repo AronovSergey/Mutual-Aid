@@ -29,6 +29,10 @@ export class HttpService {
     return this.http.get<Pagination<IUser>>(this.baseUrl + '/' + this.USERS, { params });
   }
 
+  public updateUser(user: IUser): Observable<IUser> {
+    return this.http.put<IUser>(this.baseUrl + '/' + this.USERS + '/' + user.id, user);
+  }
+
   // -- Auth --
 
   public login(email: string, password: string): Observable<IToken> {
