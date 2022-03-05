@@ -1,8 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany } from 'typeorm';
 import { UserRole } from '@mutual-aid/enums';
+import { IUser } from '@mutual-aid/interfaces';
+import { BlogEntry } from '../blog/blog-entry.entity';
 
 @Entity()
-export class User {
+export class User implements IUser {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -21,8 +23,11 @@ export class User {
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role: UserRole;
 
-  @Column({ nullable: true }) 
+  @Column({ nullable: true })
   profileImage: string;
+
+  @OneToMany(type => BlogEntry, blog => blog.author)
+  blogEntries: BlogEntry[];
 
   @BeforeInsert()
   emailToLowerCase() {

@@ -1,3 +1,4 @@
+import { IBlogEntry } from './blog-entry.interface';
 import { UserRole } from '@mutual-aid/enums';
 
 export interface IUser {
@@ -8,4 +9,5 @@ export interface IUser {
   password?: string;
   role?: UserRole;
   profileImage?: string;
+  blogEntries?: IBlogEntry[];
 }
